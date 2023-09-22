@@ -21,7 +21,24 @@
  */
 class Person {
   // continue the code here
+  constructor(firstName, lastName, gender, birthYear) {
+    this.firstName = `${firstName}`;
+    this.lastName = `${lastName}`;
+    this.gender = `${gender}`;
+    this.birthYear = `${birthYear}`;
+  }
+  printname = () => console.log(`${this.firstName} ${this.lastName}`);
+  calculateAge = (currentYear) => currentYear - this.birthYear;
 }
+const x = new Person("Khaled", "Thuwaini", "Male", 1995);
+const y = new Person("Nora", "Aljasmi", "Female", 1985);
+const z = new Person("Abeer", "Aljasmi", "Female", 1971);
+x.printname();
+console.log(x.calculateAge(2023));
+y.printname();
+console.log(y.calculateAge(2023));
+z.printname();
+console.log(z.calculateAge(2023));
 
 /** (Question 2): (15000 Points)
  * 1. Write a class `Movie`, give it the following properties
@@ -46,7 +63,26 @@ class Person {
 
 class Movie {
   // continue the code here
+  constructor(title, duration, genre, rating = []) {
+    this.title = `${title}`;
+    this.duration = `${duration} (min)`;
+    this.genre = `${genre}`;
+    this.rating = rating;
+  }
+  rate = (rating) =>
+    rating >= 0 && rating <= 10
+      ? this.rating.push(rating)
+      : "Rating should be restricted to be greater than 0 and less than 10.";
+  averageRating = () =>
+    this.rating.reduce((i, j) => i + j) / this.rating.length;
 }
+const m1 = new Movie("The Dark Knight", 120, "Action");
+m1.rate(9);
+m1.rate(9);
+m1.rate(10);
+m1.rate(10);
+console.log(m1);
+console.log(m1.averageRating());
 
 /** (Question 3): (1000 Points)
  * 1. Create a class `Actor` that inherits `Person`, and adds the following properties
@@ -58,3 +94,15 @@ class Movie {
  */
 
 // write the class here
+class Actor extends Person {
+  constructor(firstName, lastName, gender, birthYear, movies = []) {
+    super(firstName, lastName, gender, birthYear);
+    this.movies = movies;
+  }
+  addMovie = (movie) => this.movies.push(movie);
+}
+const a1 = new Actor("Mal", "Taken", "Male", 1965);
+a1.addMovie("taken");
+console.log(a1);
+a1.printname();
+console.log(a1.calculateAge(2023));
